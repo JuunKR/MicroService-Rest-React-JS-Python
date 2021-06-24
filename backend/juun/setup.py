@@ -14,6 +14,7 @@ install_requires = [
     'JPype1==1.3.0',
     'konlpy==0.5.2',
     'wordcloud==1.8.1',
+    'lxml 4.6.3',
 
     ]
 
