@@ -8,7 +8,7 @@ import pandas as pd
 import pandas_datareader.data as web
 import numpy as np
 import matplotlib.pyplot as plt
-# from fbprophet import Prophet
+from fbprophet import Prophet
 from datetime import datetime
 from pandas_datareader import data
 import yfinance as yf
@@ -292,4 +292,4 @@ if __name__ == '__main__':
     # service.forecast(df=df)
     # service.seasonal()
     # service.growth_model()
-    # service.holiday_forecast()
+    service.holiday_forecast()
