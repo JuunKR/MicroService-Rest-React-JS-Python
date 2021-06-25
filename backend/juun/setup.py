@@ -9,13 +9,6 @@ setup_requires = [
 
 install_requires = [
     'django==3.2.4',
-    'html5lib==1.1',
-    'wheel==0.36.2',
-    'JPype1==1.3.0',
-    'konlpy==0.5.2',
-    'wordcloud==1.8.1',
-    'lxml 4.6.3',
-
     ]
 
 
@@ -42,8 +35,8 @@ setup(
     entry_points={
         'console_scripts': [
             'publish = juun.common.script:main',
-            'publish = admin.crime.script:main',
-            'publish = admin.gas_station.script:main',
+            'publish = juun.crime.script:main',
+            'publish = juun.gas_station.script:main',
             ],
         },
     )

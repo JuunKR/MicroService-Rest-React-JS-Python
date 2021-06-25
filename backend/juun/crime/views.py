@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "juun.settings")
 from models import Service
 
 
