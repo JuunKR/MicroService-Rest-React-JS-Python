@@ -1,7 +1,7 @@
 from django.urls import path
-from . import views
+from .views import Boards as board
 
 urlpatterns = [
 
-
+    path('/write', board.as_view())
 ]

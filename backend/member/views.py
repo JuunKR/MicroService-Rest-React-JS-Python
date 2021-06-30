@@ -6,21 +6,43 @@ from . import views
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
-from member.models import Member
+
 from member.serializers import MemberSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from icecream import ic
-class Auth(APIView):
-    def get(self, request):
-        ic(request)
-        # data = JSONParser().parse(request)
-        print('########### 저장 1 ##################')
-        serializer = MemberSerializer(data=request)
+from django.http import Http404
+from member.models import MemberVO as member
+
+
+class Members(APIView):
+    def post(self, request):
+        data = request.data['body']
+        ic(data)
+        serializer = MemberSerializer(data=data)
         if serializer.is_valid():
-            print('########### 저장 2 ##################')
             serializer.save()
-        return Response({'result':'WELCOME'})
+            return Response({'result': f'Welcome, {serializer.data.get("name")}'}, status=201)
+        ic(serializer.errors)
+        return Response(serializer.errors, status=400)
+
+class Member(APIView):
+    def post(self, request):
+        data = request.data['body']
+        pk = data['username']
+        user_input_password = data['password']
+        member = self.get_object(pk)
+        if user_input_password == member.password:
+            return Response({'result': 'you are logged in'}, status=201)
+        return HttpResponse(status=104)
+
+    @staticmethod
+    def get_object(pk):
+        try:
+            return member.objects.get(pk=pk)
+        except member.DoesNotExist:
+            ic('으아아')
+            raise Http404
 
 
 @csrf_exempt
