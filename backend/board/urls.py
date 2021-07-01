@@ -3,5 +3,5 @@ from .views import Boards as board
 
 urlpatterns = [
 
-    path('/write', board.as_view())
+    path('/register', board.as_view())
 ]

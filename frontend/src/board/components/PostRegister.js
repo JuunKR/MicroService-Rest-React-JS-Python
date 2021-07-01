@@ -1,10 +1,10 @@
 import React,{useImperativeHandle, useState} from 'react'
-import './PostWrite.css'
+import '../styles/PostRegister.css'
 import { Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
-import { postwrite } from 'api'
+import { postRegister } from 'api'
 
-const PostWirte = () => {
+const PostRegister = () => {
   const history = useHistory()
   const [postInfo, setPostInfo] = useState({
     title: '',
@@ -22,7 +22,7 @@ const PostWirte = () => {
       return response;
     }
     alert(`작성하시겠습니까?: ${JSON.stringify({...postInfo})}`)
-    postwrite({...postInfo})
+    postRegister({...postInfo})
     .then(res => {
       alert(`작성 완료 : ${res.data.result} `)
       // history.push('login')
@@ -71,4 +71,4 @@ const PostWirte = () => {
 </>)
 }
 
-export default PostWirte
+export default PostRegister

@@ -1,9 +1,9 @@
-import { userLogin } from 'api';
+import { memberLogin } from 'api';
 import { useHistory } from 'react-router'
 import React,{useState} from 'react'
 
 
-const Login = () => {
+const MemberLogin = () => {
   const history = useHistory()
   const [userInfo, setUserInfo] = useState({
     username: '',
@@ -20,7 +20,7 @@ const Login = () => {
       }
       return response;
     }
-    userLogin({...userInfo})
+    memberLogin({...userInfo})
     .then(res => {
       alert(`로그인 성공 : ${res.data.result} `)
       // history.push('login')
@@ -81,4 +81,4 @@ const Login = () => {
       </>)
 }
 
-export default Login
+export default MemberLogin

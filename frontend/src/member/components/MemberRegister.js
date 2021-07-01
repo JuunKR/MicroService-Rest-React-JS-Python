@@ -1,10 +1,11 @@
 import React,{useState} from 'react'
-import './Signup.css'
+import '../styles/MemberRegister.css'
 import { Button } from '@material-ui/core';
 
-import { userSignup } from 'api'
+import { memberRegister } from 'api'
 import { useHistory } from 'react-router'
-const SignUp = () => {
+
+const MemberRegister = () => {
   const history = useHistory()
   const [userInfo, setUserInfo] = useState({
     username: '',
@@ -25,7 +26,7 @@ const SignUp = () => {
       return response;
     }
     alert(`전송 클릭: ${JSON.stringify({...userInfo})}`)
-    userSignup({...userInfo})
+    memberRegister({...userInfo})
     .then(res => {
       alert(`회원가입 완료 : ${res.data.result} `)
       // history.push('login')
@@ -88,4 +89,4 @@ const SignUp = () => {
 </>)
 }
 
-export default SignUp
+export default MemberRegister
