@@ -17,96 +17,44 @@ import  {memberList}  from 'api'
 
 
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
-  },
+// const useStyles = makeStyles({
+//   table: {
+//     minWidth: 650,
+//   },
 
-});
-const usePageStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      marginTop: theme.spacing(2),
+// });
+// const usePageStyles = makeStyles((theme) => ({
+//   root: {
+//     '& > *': {
+//       marginTop: theme.spacing(2),
 
-    },
-  },
-}));
+//     },
+//   },
+// }));
 
 
 const MemberList = () => {
 
-  faker.seed(123);
+  const [page, setPage] = useState(0)
+  const [rowsPerPage, setRowsPerPage] = useState(10)
 
-  const users = Array(53)
-  .fill()
-  .map(() => ({
-    id: faker.random.uuid(),
-    name: faker.name.lastName() + faker.name.firstName(),
-    email: faker.internet.email(),
-    phone: faker.phone.phoneNumber()
-  }));
-
-  const UserTable = () => {
-    const [page, setPage] = useState(0)
-    const [rowsPerPage, setRowsPerPage] = useState(10)
-  
-    const handleChangePage = (event, newPage) => {
-      setPage(newPage)
-    }
-  
-    const handleChangeRowsPerPage = (event) => {
-      setRowsPerPage(parseInt(event.target.value, 10))
-      setPage(0)
-    }
-
-    return (
-      <TableContainer component={Paper}>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell>No</TableCell>
-            <TableCell align="right">Name</TableCell>
-            <TableCell align="right">Email</TableCell>
-            <TableCell align="right">Phone</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {users
-            .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
-            .map(({ id, name, email, phone }, i) => (
-              <TableRow key={id}>
-                <TableCell component="th" scope="row">
-                  {page * rowsPerPage + i + 1}
-                </TableCell>
-                <TableCell align="right">{name}</TableCell>
-                <TableCell align="right">{email}</TableCell>
-                <TableCell align="right">{phone}</TableCell>
-              </TableRow>
-            ))}
-        </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-              count={users.length}
-              page={page}
-              rowsPerPage={rowsPerPage}
-              onChangePage={handleChangePage}
-              onChangeRowsPerPage={handleChangeRowsPerPage}
-            />
-          </TableRow>
-        </TableFooter>
-      </Table>
-    </TableContainer>
-    )
-
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage)
   }
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10))
+    setPage(0)
+  }
+
+ 
 
   const [members, setMembers] = useState([])
 
-  const classes = useStyles();
-  const pageClasses = usePageStyles();
+  // const classes = useStyles();
+  // const pageClasses = usePageStyles();
 
-
+/*className={classes.table} aria-label="simple table" */
   useEffect(() => {
     memberList()
       .then(res => {
@@ -120,9 +68,8 @@ const MemberList = () => {
   }, [])
 
   return (<>
-    {UserTable}
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
+      <TableContainer component={Paper}>
+      <Table >   
         <TableHead>
           <TableRow>
             <TableCell>회원 ID</TableCell>
@@ -135,10 +82,12 @@ const MemberList = () => {
         <TableBody>
 
           {members.length != 0
-            ? members.map((member) => (
+            ? members
+              .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
+              .map((member) => (
               <TableRow key={member.username}>
                 <TableCell align="right">{member.username}</TableCell>
-                <TableCell component="th" scope="row">{member.password}</TableCell>
+                <TableCell align='right' component="th" scope="row">{member.password}</TableCell>
                 <TableCell align="right">{member.name}</TableCell>
                 <TableCell align="right">{member.email}</TableCell>
               </TableRow>)
@@ -151,11 +100,26 @@ const MemberList = () => {
             </TableRow>
           }
         </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TablePagination
+              count={members.length}
+              page={page}
+              rowsPerPage={rowsPerPage}
+              onChangePage={handleChangePage}
+              onChangeRowsPerPage={handleChangeRowsPerPage}
+            />
+          </TableRow>
+        </TableFooter>
+
+
+
+
       </Table>
     </TableContainer>
-    <div className={pageClasses.root}>
+    {/* <div className={pageClasses.root}>
       <Pagination count={10} color="primary" />
-    </div>
+    </div> */}
   </>);
 }
 
