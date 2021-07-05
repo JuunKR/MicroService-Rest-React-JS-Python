@@ -12,7 +12,7 @@ import {TableFooter} from '@material-ui/core';
 import {TablePagination} from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination'
 import faker from "faker/locale/ko";
-
+import { Link } from "react-router-dom";
 import  {memberList}  from 'api'
 
 
@@ -33,7 +33,7 @@ import  {memberList}  from 'api'
 // }));
 
 
-const MemberList = () => {
+const MemberListComponent = () => {
 
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(10)
@@ -67,6 +67,10 @@ const MemberList = () => {
 
   }, [])
 
+  const handleClick = member => {
+    localStorage.setItem("selectedMember", member)
+  }
+
   return (<>
       <TableContainer component={Paper}>
       <Table >   
@@ -80,28 +84,31 @@ const MemberList = () => {
         </TableHead>
 
         <TableBody>
-
-          {members.length != 0
-            ? members
-              .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
-              .map((member) => (
-              <TableRow key={member.username}>
-                <TableCell align="right">{member.username}</TableCell>
-                <TableCell align='right' component="th" scope="row">{member.password}</TableCell>
-                <TableCell align="right">{member.name}</TableCell>
-                <TableCell align="right">{member.email}</TableCell>
-              </TableRow>)
-            )
-            : <TableRow>
-              <TableCell component="th" scope="row" colSpan="4">
-                <h1>등록된 데이터가 없습니다</h1>
-              </TableCell>
-
-            </TableRow>
+          { members.length != 0
+          
+           ? members
+           .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
+           .map(({ username, password, name, email }) => (
+               <TableRow key={ username } >
+                 <TableCell align="right">{ username }</TableCell>
+                <TableCell component="th" scope="row">{ password }</TableCell>
+                <TableCell align="right"><Link to={`/member-detail/${ username }`} 
+                onClick={ () => handleClick( JSON.stringify({ username, password, name, email }) )}>{ name }</Link></TableCell>
+                <TableCell align="right">{ email }</TableCell>
+            </TableRow>)
+          )
+          :  <TableRow>
+          <TableCell component="th" scope="row" colSpan="4">
+             <h1>등록된 데이터가 없습니다</h1>
+          </TableCell>
+        
+      </TableRow>
           }
         </TableBody>
         <TableFooter>
           <TableRow>
+
+            
             <TablePagination
               count={members.length}
               page={page}
@@ -123,7 +130,7 @@ const MemberList = () => {
   </>);
 }
 
-export default MemberList
+export default MemberListComponent
 
 /*
  <TableRow key={row.name}>

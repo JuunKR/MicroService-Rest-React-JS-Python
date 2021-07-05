@@ -17,7 +17,7 @@ urlpatterns = [
 CBV 방식
 
 
-from common.views import Connection
+from common.views.py import Connection
 from django.conf.urls import url
 from django.urls import path, include
 from rest_framework import routers

@@ -4,15 +4,15 @@ CBV 방식
 from django.shortcuts import render
 from django.urls import path
 from . import views_cbv
-# Create your views here.
+# Create your views.py here.
 
 from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
+from django.views.py.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 
 from member.serializers import MemberSerializer
 from rest_framework.response import Response
-from rest_framework.views import APIView
+from rest_framework.views.py import APIView
 from icecream import ic
 from django.http import Http404
 from member.models import MemberVO as member
