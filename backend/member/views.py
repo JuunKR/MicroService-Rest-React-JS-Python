@@ -8,6 +8,8 @@ from member.serializers import MemberSerializer
 from rest_framework.decorators import api_view, parser_classes
 from icecream import ic
 import datetime
+from rest_framework.authtoken.models import Token
+
 now = datetime.datetime.now()
 @api_view(['GET', 'POST'])
 @parser_classes([JSONParser])
@@ -16,13 +18,14 @@ def members(request):
         all_members = MemberVO.objects.all()
         serializer = MemberSerializer(all_members, many=True)
         return JsonResponse(data=serializer.data, safe=False)
+
     elif request.method == 'POST':
         new_member = request.data['body']
         ic(new_member)
         serializer = MemberSerializer(data = new_member)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse({'result':f'Welcome, {serializer.data.get("name")}'}, status=201)
+            return JsonResponse({'result':f'Welcome, {serializer.data.get("name")} '}, status=201)
         return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -72,6 +75,8 @@ def login(request):
         if user_input_password == member.password:
             serializer = MemberSerializer(member, many=False)
             ic(type(serializer.data))
+
+
             return JsonResponse(data=serializer.data, safe=False)
         else:
             print('비밀번호가 다릅니다.')

@@ -8,6 +8,8 @@ class MemberVO(models.Model):
     email = models.EmailField()
 
 
+
+
     class Meta:
         managed = True
         db_table = 'members'
