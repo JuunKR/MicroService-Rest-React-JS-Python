@@ -1,8 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
-
-export const MemberMenu = () => ( <nav>
+import { useHistory } from 'react-router'
+export const MemberMenu = () => { 
+    
+    const history = useHistory()
+    
+    return ( <nav>
        
             
             {
@@ -15,32 +18,21 @@ export const MemberMenu = () => ( <nav>
                 <ol>
                     <li><Link to='/member-list'>회원목록</Link></li>
                     <li><Link to='/member-retreive'>회원이름조회</Link></li>
-                    <li><Link to='/member-detail/asdf'>회원상세</Link></li>
+                    <li><Link to='/member-detail/as'>회원상세</Link></li>
+                    {/* 파이썬 검색엔진 개발  SEU*/}
                     <li><Link to='/member-modify'>회원수정</Link></li>
                     <li><Link to='/member-delete'>회원탈퇴</Link></li>
-                    <li><Link to='/member-login' onClick={() => localStorage.setItem("loginedMember","") }>로그아웃</Link></li>
-
+                    <li><Link to='/member-logout' onClick={() => {
+                        localStorage.setItem("loginedMember","")
+                        history.push("/home")
+                        }}>로그아웃</Link></li>
                 </ol>
             }
             
        
-</nav>
-        )
-/**
-        export const MemberMenu = () => ( <nav>
-                    <li><Link to='/member-login'>회원로그인</Link></li>
-                    <li><Link to='/member-register'>회원등록</Link></li>
-                    <li><Link to='/member-list'>회원목록</Link></li>
-                    <li><Link to='/member-retreive'>회원이름조회</Link></li>
-                    <li><Link to='/member-detail'>회원상세</Link></li>
-                    <li><Link to='/member-modify'>회원수정</Link></li>
-                    <li><Link to='/member-delete'>회원탈퇴</Link></li>
-                    <li><Link to='/member-logout'>로그아웃</Link></li>
-       
         </nav>
-
-        )
-*/
+)   
+    }
 export const ItemMenu = () => (<nav>
     <ol>
         <li><Link to='/item-list'>아이템목록</Link></li>

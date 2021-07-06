@@ -20,7 +20,7 @@ export const itemRegister = body => axios.post(`${SERVER}item/register`,{headers
 export const itemRetrieve = body => axios.post(`${SERVER}item/retrieve`,{headers, body})
 /* Member */
 export const memberDetail = id => axios.get(`${SERVER}api/member/detail/${id}`)
-export const memberDelete = body => axios.delete(`${SERVER}api/member/delete`,{headers, body})
+export const memberDelete = id => axios.delete(`${SERVER}api/member/delete/${id}`)
 export const memberList = () => axios.get(`${SERVER}adm/member/list`)
 export const memberLogin = body => axios.post(`${SERVER}api/member/login`,{headers, body})
 export const memberModify = body => axios.put(`${SERVER}api/member/modify`,{headers, body})

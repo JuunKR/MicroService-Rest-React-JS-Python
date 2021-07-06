@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'nl_process',
     'population',
     'time_series',
+        'rest_framework.authtoken'
 
 ]
 

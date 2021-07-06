@@ -24,6 +24,8 @@ const MemberLoginForm = () => {
 
       }else if(res.data.result === 'USERNAME-FAIL'){
         alert(`아이디가 틀립니다.`)
+        document.getElementById("username").value = ""
+        document.getElementById("password").value = ""
       }else{
         alert(`로그인 성공 `)
         localStorage.setItem("loginedMember", JSON.stringify(res.data))

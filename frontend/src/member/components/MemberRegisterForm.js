@@ -1,35 +1,27 @@
 import React,{useState} from 'react'
 import '../styles/MemberRegister.css'
-import { Button } from '@material-ui/core';
-
 import { memberRegister } from 'api'
 import { useHistory } from 'react-router'
 
 const MemberRegisterForm = () => {
   const history = useHistory()
-  const [userInfo, setUserInfo] = useState({
+  const [memberInfo, setMemberInfo] = useState({
     username: '',
     password: '',
     name: '',
     email: ''
   })
 
-  const {username, password, name, email} = `userInfo`
+  const {username, password, name, email} = `memberInfo`
 
 
   const handleSubmit = e => {
     e.preventDefault()
-    let handleErrors = response => {
-      if (!response.ok) {
-        throw Error(response.statusText);
-      }
-      return response;
-    }
-    alert(`전송 클릭: ${JSON.stringify({...userInfo})}`)
-    memberRegister({...userInfo})
+    alert(`전송 클릭: ${JSON.stringify({...memberInfo})}`)
+    memberRegister({...memberInfo})
     .then(res => {
       alert(`회원가입 완료 : ${res.data.result} `)
-      // history.push('login')
+      history.push('/member-login')
       
     })
     .catch(err => {
@@ -48,8 +40,8 @@ const MemberRegisterForm = () => {
 
   const handleChange = e => {
     const { name, value } = e.target
-    setUserInfo({
-      ...userInfo,
+    setMemberInfo({
+      ...memberInfo,
       [name]: value
     })
 
